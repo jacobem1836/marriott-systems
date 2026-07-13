@@ -1,0 +1,139 @@
+---
+import "@fontsource/inter/400.css";
+import "@fontsource/inter/500.css";
+import "@fontsource/inter/600.css";
+import "@fontsource/inter/700.css";
+import "@fontsource/geist-mono/400.css";
+import "@fontsource/geist-mono/500.css";
+import "@fontsource-variable/newsreader";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Marriott Systems – AI products and operational systems",
+  description = "Marriott Systems is a Brisbane software company building AI products and operational systems for real businesses – Brain Console, dAIly, AI consulting, and hospitality systems. Founded by Jacob Marriott.",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://marriottsystems.net/#organization",
+  "name": "Marriott Systems",
+  "url": "https://marriottsystems.net",
+  "description": "Brisbane software company building AI products and operational systems for real businesses.",
+  "founder": {
+    "@type": "Person",
+    "name": "Jacob Marriott",
+    "url": "https://jacobmarriott.com",
+  },
+  "address": { "@type": "PostalAddress", "addressLocality": "Brisbane", "addressCountry": "AU" },
+  "brand": [
+    { "@type": "Brand", "name": "Brain Console", "url": "https://console.jacobmarriott.com" },
+    { "@type": "Brand", "name": "dAIly", "url": "https://getdaily.dev" },
+  ],
+  "sameAs": [
+    "https://github.com/jacobem1836",
+    "https://www.linkedin.com/in/jacob-marriott-1836-98a6571aa",
+    "https://jacobmarriott.com",
+  ],
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "url": "https://marriottsystems.net",
+  "name": "Marriott Systems",
+  "publisher": { "@id": "https://marriottsystems.net/#organization" },
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark light" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Marriott Systems" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <link rel="canonical" href={canonicalURL} />
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+  </head>
+  <body>
+    <main>
+      <slot />
+    </main>
+    <footer class="footer">
+      <div class="container footer__inner">
+        <p class="footer__line mono">
+          © 2026 Marriott Systems
+          <span class="footer__dot" aria-hidden="true">·</span>
+          Brisbane, AU
+        </p>
+        <p class="footer__line mono">
+          <a href="https://jacobmarriott.com">founder</a>
+          <span class="footer__dot" aria-hidden="true">·</span>
+          <a href="https://github.com/jacobem1836" target="_blank" rel="noopener noreferrer">github</a>
+          <span class="footer__dot" aria-hidden="true">·</span>
+          <a href="https://www.linkedin.com/in/jacob-marriott-1836-98a6571aa" target="_blank" rel="noopener noreferrer">linkedin</a>
+          <span class="footer__dot" aria-hidden="true">·</span>
+          <a href="mailto:hello@jacobmarriott.com">hello@jacobmarriott.com</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--color-border);
+    padding-block: var(--space-8);
+  }
+
+  .footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-6);
+  }
+
+  .footer__line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--color-text-dim);
+    text-transform: lowercase;
+  }
+
+  .footer__line a {
+    color: var(--color-text-muted);
+  }
+
+  .footer__line a:hover {
+    color: var(--color-accent);
+  }
+
+  .footer__dot {
+    color: var(--color-text-dim);
+  }
+</style>
