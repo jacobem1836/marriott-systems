@@ -1,0 +1,555 @@
+---
+import Base from "../../layouts/Base.astro";
+
+const services = [
+  {
+    index: "01",
+    name: "Visibility audit",
+    price: "$297 – delivered in 48 hours",
+    body: "A review of your Google presence, your mobile site, and how you compare with two local competitors. Delivered as a short video walkthrough and a PDF fix list ranked by impact. If it leads to a rebuild, the $297 is credited against the price.",
+    href: "/hospitality/audit",
+    cta: "order an audit",
+  },
+  {
+    index: "02",
+    name: "Website rebuild",
+    price: "from $997",
+    body: "A custom, mobile-first site built around your venue – menu integration, booking flows, local SEO, and copy written for you. No templates, no platform fees, and you own everything: the code, the design, and the domain.",
+  },
+  {
+    index: "03",
+    name: "Operations systems",
+    price: "builds from $1.5k, fixed scope",
+    body: "Custom operational systems that pull a venue's existing tools – POS, bookings, accounting, and rostering – into one place. Engagements start with a free fit-check call and a short operations audit ($300–600) that maps where the numbers live and which changes are worth making first.",
+  },
+  {
+    index: "04",
+    name: "Ongoing care",
+    price: "websites from $47/mo, systems $400–800/mo",
+    body: "Hosting, content edits, and a monthly visibility check for websites. For operational systems: maintenance, one small improvement each month, and asynchronous support.",
+  },
+];
+
+const faqs = [
+  {
+    q: "How much of my time does this take?",
+    a: "About an hour across a whole website project – a 20-minute call, half an hour reviewing the mockup, and a sign-off. Marriott Systems handles the design, copy, development, hosting, and launch.",
+  },
+  {
+    q: "Do I need to write the text or supply images?",
+    a: "No. All copy is written for you, based on the initial call. Photos of your venue or team help, but existing material is enough to work with.",
+  },
+  {
+    q: "What if I don't like the design?",
+    a: "The mockup is free. If it isn't right, it gets adjusted – or you walk away at no cost. Revision rounds are built into the process after sign-off.",
+  },
+  {
+    q: "How long until it's live?",
+    a: "Audits are delivered within 48 hours of payment. Most website projects go from first call to live site in two to three weeks; the build itself takes five to seven business days from mockup sign-off. Operations systems ship as one focused build with a fixed scope.",
+  },
+  {
+    q: "Will it show up on Google – and in AI answers?",
+    a: "Yes. Every site is built with local SEO structure from the start: proper headings, schema markup, fast load times, and mobile-first layout. Sites are also structured so AI tools such as ChatGPT and Google AI can read your services, location, and reviews – and surface your business when someone asks for a recommendation.",
+  },
+  {
+    q: "Do I own the website?",
+    a: "Yes. The code, the design, and the domain are yours, with no lock-in. Ongoing care is available if you would rather not think about it, but it is never required.",
+  },
+  {
+    q: "Why not just use Wix or Squarespace?",
+    a: "Template platforms are slower, harder to rank on Google, and carry ongoing platform fees. A custom site loads faster, converts better, and looks like your business rather than a theme.",
+  },
+  {
+    q: "What if I'm not in Brisbane?",
+    a: "Marriott Systems works with venues across South-East Queensland, and the audit and rebuild process is fully remote – no in-person meetings required.",
+  },
+];
+
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Marriott Systems – Hospitality",
+  "url": "https://marriottsystems.net/hospitality",
+  "description": "Website audits, rebuilds, and custom operational systems for Brisbane restaurants, cafes, and bars.",
+  "areaServed": { "@type": "City", "name": "Brisbane" },
+  "address": { "@type": "PostalAddress", "addressLocality": "Brisbane", "addressCountry": "AU" },
+  "email": "hello@jacobmarriott.com",
+  "priceRange": "$297–$4,000",
+  "parentOrganization": { "@id": "https://marriottsystems.net/#organization" },
+};
+---
+
+<Base
+  title="Hospitality websites and operations systems – Marriott Systems"
+  description="Website audits, rebuilds, and custom operational systems for Brisbane restaurants, cafes, and bars. Audits from $297, rebuilds from $997, systems builds from $1.5k."
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+
+  <section class="hero container" aria-labelledby="hero-heading">
+    <p class="section-label"><span aria-hidden="true">01 / </span>hospitality</p>
+    <h1 id="hero-heading" class="hero__headline">
+      Websites and operational systems for hospitality.
+    </h1>
+    <p class="hero__lede">
+      Marriott Systems finds where a venue is losing customers online and fixes it – then goes
+      further, pulling POS, bookings, and accounting into operational systems that show owners
+      what is actually happening. Built in Brisbane, for independent restaurants, cafes, and bars.
+    </p>
+    <p class="hero__meta mono">
+      <span>audits from $297</span>
+      <span aria-hidden="true">·</span>
+      <span>rebuilds from $997</span>
+      <span aria-hidden="true">·</span>
+      <span>systems from $1.5k</span>
+    </p>
+  </section>
+
+  <section class="services container" aria-labelledby="services-heading">
+    <p class="section-label services__label"><span aria-hidden="true">02 / </span>services</p>
+    <h2 id="services-heading" class="visually-hidden">Services</h2>
+    <ol class="services__list">
+      {services.map((s) => (
+        <li class="services__item">
+          <header class="services__header">
+            <p class="services__index mono" aria-hidden="true">{s.index}</p>
+            <h3 class="services__name">{s.name}</h3>
+            <p class="services__price mono">{s.price}</p>
+          </header>
+          <div class="services__detail">
+            <p class="services__body">{s.body}</p>
+            {s.href && (
+              <p class="services__cta-row">
+                <a class="services__cta" href={s.href}>{s.cta} <span aria-hidden="true">→</span></a>
+              </p>
+            )}
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="why container" aria-labelledby="why-heading">
+    <p class="section-label"><span aria-hidden="true">03 / </span>why it matters</p>
+    <h2 id="why-heading" class="why__title">Your customers are already searching.</h2>
+    <p class="why__body">
+      Someone searches for a venue, or asks an AI assistant for a recommendation – and your
+      website is how they decide between you and the competitor down the road. 97% of people
+      research local businesses online before making contact, 75% judge credibility by the
+      website, and 46% of all Google searches are local.
+    </p>
+    <p class="why__body">
+      Increasingly, those questions go to ChatGPT, Google AI, and Siri instead of a results
+      page. These tools take their answers from websites: if yours is a generic template –
+      or missing – you are invisible to them. Every Marriott Systems build is structured so
+      search engines and AI tools can read your services, location, reviews, and contact
+      details clearly. The goal is no longer just ranking; it is being the answer.
+    </p>
+  </section>
+
+  <section class="proof container" aria-labelledby="proof-heading">
+    <p class="section-label"><span aria-hidden="true">04 / </span>work</p>
+    <h2 id="proof-heading" class="proof__title">Live and in production.</h2>
+    <ul class="proof__list">
+      <li class="proof__item">
+        <h3 class="proof__name">
+          <a href="https://inapickle.com.au" target="_blank" rel="noopener noreferrer">
+            In a Pickle <span class="proof__arrow" aria-hidden="true">↗</span>
+          </a>
+        </h3>
+        <p class="proof__status mono">live – boutique caterer, brisbane</p>
+        <p class="proof__body">
+          A complete website for a Brisbane boutique caterer – catering, menus, blog, and
+          online quotes and bookings, with an inline editor so the team updates content
+          themselves.
+        </p>
+      </li>
+      <li class="proof__item">
+        <h3 class="proof__name">
+          <a href="https://restaurant-demo-mu-eight.vercel.app" target="_blank" rel="noopener noreferrer">
+            Restaurant finance dashboard <span class="proof__arrow" aria-hidden="true">↗</span>
+          </a>
+        </h3>
+        <p class="proof__status mono">in production – brisbane pizzeria</p>
+        <p class="proof__body">
+          An operational dashboard a Brisbane pizzeria runs its end-of-service numbers on –
+          daily sales, wages, COGS, and profitability across daily, weekly, monthly, and
+          financial-year views. A live demo with simulated data is available at the link.
+        </p>
+      </li>
+    </ul>
+    <blockquote class="proof__quote">
+      <p>
+        "Our website was in dire need of a major revamp and we were lucky enough to come across
+        Jacob Marriott. His attention to detail and knowledge around an online presence has
+        helped create a much more user-friendly platform for our clients to navigate. In the
+        short time since we launched we have already noticed a major increase in traffic to the
+        site. 100% recommend."
+      </p>
+      <footer class="mono">— in a pickle, boutique caterer, brisbane</footer>
+    </blockquote>
+  </section>
+
+  <section class="faq container" aria-labelledby="faq-heading">
+    <p class="section-label"><span aria-hidden="true">05 / </span>faq</p>
+    <h2 id="faq-heading" class="faq__title">Common questions.</h2>
+    <div class="faq__list">
+      {faqs.map((f) => (
+        <details class="faq__item">
+          <summary class="faq__question">
+            <span>{f.q}</span>
+            <span class="faq__icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq__answer"><p>{f.a}</p></div>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <section class="who container" aria-labelledby="who-heading">
+    <p class="section-label"><span aria-hidden="true">06 / </span>who builds this</p>
+    <h2 id="who-heading" class="who__title">A software company with a kitchen background.</h2>
+    <p class="who__body">
+      Marriott Systems is run by <a href="https://jacobmarriott.com">Jacob Marriott</a>, a
+      software engineer with five years in professional kitchens across Brisbane and
+      Queenstown. That background shapes how everything here is built: systems are judged by
+      whether an operator actually uses them at the end of service, not by how they look in a
+      demo. Capacity is deliberately limited to a small number of venues at a time, so each
+      build gets done properly.
+    </p>
+  </section>
+
+  <section class="contact container" aria-labelledby="contact-heading">
+    <p class="section-label"><span aria-hidden="true">07 / </span>get in touch</p>
+    <h2 id="contact-heading" class="contact__title">Start with a call, or start with the audit.</h2>
+    <p class="contact__body">
+      Book a 20-minute intro call – no commitment, and every website project starts with a
+      free mockup so you can see what you would get before agreeing to anything. Or skip the
+      call entirely and <a href="/hospitality/audit">order the $297 audit</a>.
+    </p>
+    <p class="contact__cta-row">
+      <a class="contact__cta" href="https://cal.com/jacobem1836/20-min-intro" target="_blank" rel="noopener noreferrer">
+        book a call <span aria-hidden="true">→</span>
+      </a>
+      <a class="contact__cta contact__cta--ghost" href="mailto:hello@jacobmarriott.com">
+        hello@jacobmarriott.com
+      </a>
+    </p>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    padding-block: clamp(5rem, 3rem + 8vw, 9rem) clamp(3rem, 2rem + 4vw, 5rem);
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .hero__headline {
+    font-size: clamp(2.25rem, 1.4rem + 4.5vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    max-width: 18ch;
+  }
+
+  .hero__lede {
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    max-width: 58ch;
+  }
+
+  .hero__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-3);
+    font-size: var(--text-xs);
+    text-transform: lowercase;
+    color: var(--color-text-dim);
+  }
+
+  .services {
+    display: grid;
+    gap: var(--space-12);
+  }
+
+  .services__label {
+    color: var(--color-accent-muted);
+  }
+
+  .services__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .services__item {
+    display: grid;
+    gap: var(--space-3);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .services__item:first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .services__header {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .services__index {
+    font-size: var(--text-xs);
+    color: var(--color-text-dim);
+  }
+
+  .services__name {
+    font-size: var(--text-xl);
+    font-weight: 600;
+  }
+
+  .services__price {
+    font-size: var(--text-xs);
+    color: var(--color-accent-muted);
+    text-transform: lowercase;
+  }
+
+  .services__detail {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .services__body {
+    color: var(--color-text-muted);
+    max-width: 62ch;
+  }
+
+  .services__cta-row {
+    margin: 0;
+  }
+
+  .services__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-mono);
+    text-transform: lowercase;
+    color: var(--color-accent);
+  }
+
+  @media (min-width: 48rem) {
+    .services__item {
+      grid-template-columns: 14rem minmax(0, 1fr);
+      gap: var(--space-4) clamp(1.5rem, -1rem + 8vw, 5rem);
+      align-items: start;
+    }
+
+    .services__detail {
+      grid-column: 2;
+      grid-row: 1;
+    }
+  }
+
+  .why,
+  .who,
+  .contact {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .why__title,
+  .who__title,
+  .contact__title,
+  .proof__title,
+  .faq__title {
+    font-size: var(--text-2xl);
+  }
+
+  .why__body,
+  .who__body,
+  .contact__body {
+    color: var(--color-text-muted);
+    max-width: 58ch;
+  }
+
+  .proof {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .proof__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .proof__item {
+    display: grid;
+    gap: var(--space-2);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .proof__item:first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .proof__name {
+    font-size: var(--text-xl);
+  }
+
+  .proof__name a {
+    color: inherit;
+    border-bottom: 0;
+  }
+
+  .proof__name a:hover {
+    color: var(--color-accent);
+  }
+
+  .proof__arrow {
+    font-size: 0.65em;
+    color: var(--color-text-dim);
+  }
+
+  .proof__status {
+    font-size: var(--text-xs);
+    color: var(--color-accent-muted);
+    text-transform: lowercase;
+  }
+
+  .proof__body {
+    color: var(--color-text-muted);
+    max-width: 62ch;
+  }
+
+  .proof__quote {
+    margin: 0;
+    padding: var(--space-8);
+    background: var(--color-bg-raised);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    display: grid;
+    gap: var(--space-4);
+    max-width: 62ch;
+  }
+
+  .proof__quote p {
+    color: var(--color-text);
+    line-height: var(--leading-prose);
+  }
+
+  .proof__quote footer {
+    font-size: var(--text-xs);
+    color: var(--color-text-dim);
+  }
+
+  .faq {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .faq__list {
+    max-width: var(--container-narrow);
+    display: grid;
+  }
+
+  .faq__item {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .faq__item:last-child {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .faq__question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4) 0;
+    cursor: pointer;
+    list-style: none;
+    font-weight: 500;
+    color: var(--color-text);
+    transition: color var(--duration-fast) var(--ease-out-expo);
+  }
+
+  .faq__question::-webkit-details-marker { display: none; }
+  .faq__question::marker { content: ""; }
+
+  .faq__question:hover {
+    color: var(--color-accent);
+  }
+
+  .faq__icon {
+    font-family: var(--font-mono);
+    color: var(--color-text-dim);
+    flex-shrink: 0;
+    transition: transform var(--duration-normal) var(--ease-out-expo);
+  }
+
+  details[open] .faq__icon {
+    transform: rotate(45deg);
+  }
+
+  .faq__answer {
+    padding-bottom: var(--space-4);
+  }
+
+  .faq__answer p {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    max-width: var(--measure-prose);
+  }
+
+  .contact__cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+  }
+
+  .contact__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-mono);
+    text-transform: lowercase;
+    color: var(--color-accent);
+    background: var(--color-accent-bg);
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-sm);
+    padding: 0.5em 0.9em;
+    transition: background var(--duration-fast) var(--ease-out-expo);
+  }
+
+  .contact__cta:hover,
+  .contact__cta:focus-visible {
+    background: var(--color-accent);
+    color: var(--color-bg);
+    border-bottom-color: var(--color-accent);
+  }
+
+  .contact__cta--ghost {
+    background: transparent;
+    border-color: var(--color-border-strong);
+    color: var(--color-text-muted);
+  }
+
+  .contact__cta--ghost:hover,
+  .contact__cta--ghost:focus-visible {
+    background: var(--color-bg-raised);
+    color: var(--color-text);
+  }
+</style>

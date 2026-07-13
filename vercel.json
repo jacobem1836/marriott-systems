@@ -4,6 +4,21 @@
       "source": "/dashboard",
       "destination": "https://chef-jon-pizzeria-dashboard.vercel.app/",
       "permanent": false
+    },
+    {
+      "source": "/hospitality-systems",
+      "destination": "/hospitality",
+      "permanent": true
+    },
+    {
+      "source": "/audit",
+      "destination": "/hospitality/audit",
+      "permanent": true
+    },
+    {
+      "source": "/consult",
+      "destination": "/consulting",
+      "permanent": true
     }
   ],
   "headers": [

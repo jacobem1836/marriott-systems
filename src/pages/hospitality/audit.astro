@@ -1,0 +1,345 @@
+---
+export const prerender = true;
+import Base from "../../layouts/Base.astro";
+
+const leadId = Astro.url.searchParams.get("lead_id") ?? "";
+---
+
+<Base
+  title="$297 Visibility Audit – Marriott Systems"
+  description="Find out exactly where your Brisbane hospitality business is losing customers online. Short video + PDF fix list, delivered in 48 hours."
+>
+  <section class="hero container" aria-labelledby="hero-heading">
+    <p class="section-label"><span aria-hidden="true">01 / </span>visibility audit</p>
+    <h1 id="hero-heading" class="hero__headline">
+      Find out exactly where your venue is losing customers online.
+    </h1>
+    <p class="hero__meta mono">
+      <span>$297</span>
+      <span aria-hidden="true">·</span>
+      <span>delivered in 48 hours</span>
+      <span aria-hidden="true">·</span>
+      <span>no call required</span>
+    </p>
+    <p class="hero__cta-row">
+      <button class="cta-primary" id="buy-audit-btn" data-lead-id={leadId}>
+        pay $297 and start the audit <span aria-hidden="true">→</span>
+      </button>
+    </p>
+    <p class="hero__trust">
+      If the audit isn't useful, email <a href="mailto:hello@jacobmarriott.com">hello@jacobmarriott.com</a>
+      for a full refund – no questions asked.
+    </p>
+  </section>
+
+  <section class="deliver container" aria-labelledby="deliver-heading">
+    <p class="section-label"><span aria-hidden="true">02 / </span>what you get</p>
+    <h2 id="deliver-heading" class="section-title">Four things, delivered in 48 hours.</h2>
+    <ol class="deliver__list">
+      <li class="deliver__item">
+        <span class="deliver__num mono" aria-hidden="true">01</span>
+        <p><strong>A five-minute video</strong> walking through your Google presence, your mobile site, and a side-by-side competitor comparison.</p>
+      </li>
+      <li class="deliver__item">
+        <span class="deliver__num mono" aria-hidden="true">02</span>
+        <p><strong>A PDF with a ranked fix list</strong> – highest impact first, so you know exactly where to start.</p>
+      </li>
+      <li class="deliver__item">
+        <span class="deliver__num mono" aria-hidden="true">03</span>
+        <p><strong>A comparison against two local competitors</strong> – where they outrank you, and why.</p>
+      </li>
+      <li class="deliver__item">
+        <span class="deliver__num mono" aria-hidden="true">04</span>
+        <p><strong>Delivery within 48 hours</strong> of payment – no scheduling, no waiting.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="why container" aria-labelledby="why-heading">
+    <p class="section-label"><span aria-hidden="true">03 / </span>why $297</p>
+    <h2 id="why-heading" class="section-title">The lowest-risk way to find out if we can help.</h2>
+    <p class="why__body">
+      Most rebuilds start at $997. The audit is how you find out whether your site is actually
+      costing you customers before committing to anything larger. If the audit leads to a
+      rebuild, the $297 is credited against it – you don't pay twice.
+    </p>
+    <a class="sample-card" href="/sample-audit.pdf" target="_blank" rel="noopener">
+      <span class="sample-card__label mono">pdf · example</span>
+      <span class="sample-card__title">View a sample audit <span aria-hidden="true">→</span></span>
+      <span class="sample-card__note">The example uses a fictional West End cafe. Your audit uses your actual data.</span>
+    </a>
+  </section>
+
+  <section class="faq container" aria-labelledby="faq-heading">
+    <p class="section-label"><span aria-hidden="true">04 / </span>faq</p>
+    <h2 id="faq-heading" class="section-title">Common questions.</h2>
+    <div class="faq__list">
+      <details class="faq__item">
+        <summary class="faq__question"><span>What if I'm not in Brisbane?</span><span class="faq__icon" aria-hidden="true">+</span></summary>
+        <div class="faq__answer"><p>The audit is fully remote, so location doesn't matter – the Brisbane focus simply reflects where most clients come from.</p></div>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__question"><span>Do I have to buy the rebuild afterwards?</span><span class="faq__icon" aria-hidden="true">+</span></summary>
+        <div class="faq__answer"><p>No. The audit stands alone and is useful regardless of what you do next. If you do go ahead with a rebuild, the $297 is credited against the price.</p></div>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__question"><span>What's the turnaround?</span><span class="faq__icon" aria-hidden="true">+</span></summary>
+        <div class="faq__answer"><p>The audit is delivered within 48 hours of payment. A website rebuild takes five to seven business days from sign-off on the mockup.</p></div>
+      </details>
+    </div>
+  </section>
+
+  <section class="cta container" aria-labelledby="cta-heading">
+    <h2 id="cta-heading" class="section-title">Ready to find out what's costing you customers?</h2>
+    <p class="hero__cta-row">
+      <button class="cta-primary cta-primary--large" id="buy-audit-btn-2" data-lead-id={leadId}>
+        pay $297 and start the audit <span aria-hidden="true">→</span>
+      </button>
+    </p>
+    <p class="hero__trust">Delivered in 48 hours · full refund if it isn't useful.</p>
+  </section>
+</Base>
+
+<script>
+  function initAuditButtons() {
+    const buttons = document.querySelectorAll<HTMLButtonElement>('[id^="buy-audit-btn"]');
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        btn.disabled = true;
+        btn.textContent = "redirecting…";
+
+        const leadId = btn.dataset.leadId ?? "";
+        const payload: Record<string, string> = {};
+        if (leadId) payload.lead_id = leadId;
+
+        try {
+          const res = await fetch("/api/create-checkout", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+          const data = await res.json();
+          if (data.url) {
+            window.location.href = data.url;
+          } else {
+            btn.textContent = "something went wrong – try again";
+            btn.disabled = false;
+          }
+        } catch {
+          btn.textContent = "something went wrong – try again";
+          btn.disabled = false;
+        }
+      });
+    });
+  }
+
+  initAuditButtons();
+</script>
+
+<style>
+  .hero {
+    padding-block: clamp(5rem, 3rem + 8vw, 9rem) clamp(3rem, 2rem + 4vw, 5rem);
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .hero__headline {
+    font-size: clamp(2rem, 1.3rem + 3.8vw, 3.75rem);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    font-weight: 700;
+    max-width: 20ch;
+  }
+
+  .hero__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-3);
+    font-size: var(--text-xs);
+    text-transform: lowercase;
+    color: var(--color-text-dim);
+  }
+
+  .hero__cta-row {
+    margin: 0;
+  }
+
+  .hero__trust {
+    font-size: var(--text-sm);
+    color: var(--color-text-dim);
+    max-width: 50ch;
+  }
+
+  .cta-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-mono);
+    text-transform: lowercase;
+    color: var(--color-accent);
+    background: var(--color-accent-bg);
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-sm);
+    padding: 0.6em 1em;
+    cursor: pointer;
+    min-height: 44px;
+    transition: background var(--duration-fast) var(--ease-out-expo);
+  }
+
+  .cta-primary:hover,
+  .cta-primary:focus-visible {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  .cta-primary:active {
+    transform: scale(0.98);
+  }
+
+  .cta-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .cta-primary--large {
+    font-size: var(--text-base);
+    padding: 0.8em 1.4em;
+  }
+
+  .section-title {
+    font-size: var(--text-2xl);
+  }
+
+  .deliver,
+  .why,
+  .faq,
+  .cta {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .deliver__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-6);
+    max-width: var(--container-narrow);
+  }
+
+  .deliver__item {
+    display: flex;
+    gap: var(--space-5);
+    align-items: flex-start;
+  }
+
+  .deliver__num {
+    font-size: var(--text-xs);
+    color: var(--color-accent);
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+
+  .deliver__item p {
+    color: var(--color-text-muted);
+  }
+
+  .deliver__item strong {
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  .why__body {
+    color: var(--color-text-muted);
+    max-width: 58ch;
+  }
+
+  .sample-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-8);
+    background: var(--color-bg-raised);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    max-width: 28rem;
+    border-bottom: 1px solid var(--color-border);
+    transition: border-color var(--duration-fast) var(--ease-out-expo);
+  }
+
+  .sample-card:hover {
+    border-color: var(--color-accent-muted);
+  }
+
+  .sample-card__label {
+    font-size: var(--text-xs);
+    color: var(--color-accent);
+    text-transform: lowercase;
+  }
+
+  .sample-card__title {
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  .sample-card__note {
+    font-size: var(--text-sm);
+    color: var(--color-text-dim);
+  }
+
+  .faq__list {
+    max-width: var(--container-narrow);
+    display: grid;
+  }
+
+  .faq__item {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .faq__item:last-child {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .faq__question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4) 0;
+    cursor: pointer;
+    list-style: none;
+    font-weight: 500;
+    color: var(--color-text);
+    transition: color var(--duration-fast) var(--ease-out-expo);
+  }
+
+  .faq__question::-webkit-details-marker { display: none; }
+  .faq__question::marker { content: ""; }
+
+  .faq__question:hover {
+    color: var(--color-accent);
+  }
+
+  .faq__icon {
+    font-family: var(--font-mono);
+    color: var(--color-text-dim);
+    flex-shrink: 0;
+    transition: transform var(--duration-normal) var(--ease-out-expo);
+  }
+
+  details[open] .faq__icon {
+    transform: rotate(45deg);
+  }
+
+  .faq__answer {
+    padding-bottom: var(--space-4);
+  }
+
+  .faq__answer p {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    max-width: var(--measure-prose);
+  }
+</style>

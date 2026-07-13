@@ -78,8 +78,18 @@ const websiteSchema = {
     <link rel="canonical" href={canonicalURL} />
     <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    <slot name="head" />
   </head>
   <body>
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="site-header__wordmark mono" href="/">marriott systems</a>
+        <nav class="site-header__nav mono" aria-label="Sections">
+          <a href="/consulting">consulting</a>
+          <a href="/hospitality">hospitality</a>
+        </nav>
+      </div>
+    </header>
     <main>
       <slot />
     </main>
@@ -105,6 +115,50 @@ const websiteSchema = {
 </html>
 
 <style>
+  .site-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding-block: var(--space-6);
+    z-index: 10;
+  }
+
+  .site-header__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-4);
+  }
+
+  .site-header__wordmark {
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-caps);
+    text-transform: lowercase;
+    color: var(--color-text-muted);
+    border-bottom: 0;
+  }
+
+  .site-header__wordmark:hover {
+    color: var(--color-accent);
+  }
+
+  .site-header__nav {
+    display: flex;
+    gap: var(--space-4);
+    font-size: var(--text-xs);
+    text-transform: lowercase;
+  }
+
+  .site-header__nav a {
+    color: var(--color-text-dim);
+    border-bottom: 0;
+  }
+
+  .site-header__nav a:hover {
+    color: var(--color-accent);
+  }
+
   .footer {
     border-top: 1px solid var(--color-border);
     padding-block: var(--space-8);

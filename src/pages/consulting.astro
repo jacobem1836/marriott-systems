@@ -1,0 +1,175 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base
+  title="AI Systems Consulting – Marriott Systems"
+  description="Personalised AI systems for professionals and businesses across Australia and New Zealand – Claude Code environments, custom skills, knowledge graphs, and automation workflows."
+>
+  <section class="consult-section container">
+    <p class="section-label"><span aria-hidden="true">01 / </span>what we build</p>
+    <div class="consult-body">
+      <p>
+        Marriott Systems builds personalised AI systems for professionals and business owners –
+        structured setups that know your work, your clients, and how you operate. Not a chat
+        window: a working layer on top of your day.
+      </p>
+      <p>
+        In practice, that means a Claude Code environment built around you – a profile that
+        persists across every session, custom shortcuts for the tasks you repeat, a knowledge
+        graph that maps your documents and finds connections, and an automation roadmap for
+        what to tackle next.
+      </p>
+    </div>
+  </section>
+
+  <section class="consult-section container">
+    <p class="section-label"><span aria-hidden="true">02 / </span>who it's for</p>
+    <div class="consult-body">
+      <p>
+        Professionals who spend too much time on work that should be faster – drafting,
+        summarising, researching, preparing. Solo operators and small teams. People who have
+        used AI through a browser and want something that actually knows them.
+      </p>
+      <p>
+        Current clients include a barrister and a travel industry consultant, with engagements
+        across Australia and New Zealand.
+      </p>
+    </div>
+  </section>
+
+  <section class="consult-section container">
+    <p class="section-label"><span aria-hidden="true">03 / </span>how it works</p>
+    <div class="consult-body">
+      <ol class="consult-steps">
+        <li class="consult-step">
+          <span class="consult-step__num mono">01</span>
+          <div>
+            <strong>Context</strong> – before anything is built, the engagement starts with how
+            you actually work: your tools, your clients, your recurring tasks, and the documents
+            you keep returning to. A personalised system is only as good as what it knows.
+          </div>
+        </li>
+        <li class="consult-step">
+          <span class="consult-step__num mono">02</span>
+          <div>
+            <strong>Build</strong> – one focused session that sets up the full environment:
+            profile, rules, skills, and knowledge graph. You leave with a working system.
+          </div>
+        </li>
+        <li class="consult-step">
+          <span class="consult-step__num mono">03</span>
+          <div>
+            <strong>Check-in</strong> – one week later, a review of what you have actually used,
+            tuning what isn't working, and adding what has emerged.
+          </div>
+        </li>
+        <li class="consult-step">
+          <span class="consult-step__num mono">04</span>
+          <div>
+            <strong>Ongoing</strong> – monthly support, new skills as your work evolves, graph
+            updates, and advanced automations.
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="consult-section container">
+    <p class="section-label"><span aria-hidden="true">04 / </span>flagship build</p>
+    <div class="consult-body">
+      <p>
+        The fullest version of this is
+        <a href="https://console.jacobmarriott.com" target="_blank" rel="noopener noreferrer">Brain Console</a>
+        – a business-wide AI brain with persistent memory, tool execution, and a knowledge layer
+        that centralises everything a company knows, wired into the tools it already runs on.
+      </p>
+      <p>
+        Where a personal setup knows one professional, Brain Console knows an entire company –
+        the same idea, scaled to a whole business.
+      </p>
+    </div>
+  </section>
+
+  <section class="consult-section container">
+    <p class="section-label"><span aria-hidden="true">05 / </span>get in touch</p>
+    <div class="consult-body">
+      <p>
+        If this sounds relevant, email
+        <a href="mailto:hello@jacobmarriott.com">hello@jacobmarriott.com</a> – a short call
+        first is always fine.
+      </p>
+      <p>
+        Running a Brisbane hospitality venue? There is a separate offer for you –
+        <a href="/hospitality">websites and operational systems</a>, including a $297
+        visibility audit with no call required.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .consult-section {
+    padding-block: var(--space-section);
+    border-top: 1px solid var(--color-border);
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .consult-section:first-of-type {
+    border-top: 0;
+    padding-top: clamp(5rem, 3rem + 8vw, 9rem);
+  }
+
+  .consult-body {
+    display: grid;
+    gap: var(--space-6);
+    max-width: 58ch;
+    font-size: var(--text-lg);
+    line-height: var(--leading-prose);
+    color: var(--color-text);
+  }
+
+  .consult-body p {
+    max-width: none;
+    color: var(--color-text-muted);
+  }
+
+  .consult-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .consult-step {
+    display: flex;
+    gap: var(--space-5);
+    align-items: flex-start;
+  }
+
+  .consult-step__num {
+    font-size: var(--text-xs);
+    color: var(--color-accent);
+    flex-shrink: 0;
+    padding-top: 0.4em;
+  }
+
+  .consult-step div {
+    color: var(--color-text-muted);
+    font-size: var(--text-base);
+    line-height: var(--leading-prose);
+  }
+
+  .consult-step strong {
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  @media (min-width: 48rem) {
+    .consult-body {
+      padding-left: clamp(0rem, -2rem + 10vw, 8rem);
+    }
+  }
+</style>

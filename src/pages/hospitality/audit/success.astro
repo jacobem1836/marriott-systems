@@ -1,0 +1,196 @@
+---
+export const prerender = false;
+import Base from "../../../layouts/Base.astro";
+import Stripe from "stripe";
+
+const stripe = new Stripe(import.meta.env.STRIPE_SECRET_KEY ?? "", {
+  apiVersion: "2026-04-22.dahlia",
+});
+
+const sessionId = Astro.url.searchParams.get("session_id") ?? "";
+
+let customerFirstName = "";
+let customerEmail = "";
+let hasError = false;
+
+if (sessionId && import.meta.env.STRIPE_SECRET_KEY) {
+  try {
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    const fullName = session.customer_details?.name ?? "";
+    customerFirstName = fullName.split(" ")[0] ?? "";
+    customerEmail = session.customer_details?.email ?? session.customer_email ?? "";
+  } catch {
+    hasError = true;
+  }
+} else {
+  hasError = !sessionId;
+}
+---
+
+<Base
+  title="Audit ordered – Marriott Systems"
+  description="Your hospitality visibility audit is on its way."
+>
+  <section class="success container">
+    {hasError ? (
+      <div class="success__state">
+        <p class="section-label">something went wrong</p>
+        <h1 class="success__heading">Your order details couldn't be retrieved.</h1>
+        <p class="success__body">
+          Your payment may still have gone through. Email
+          <a href="mailto:hello@jacobmarriott.com">hello@jacobmarriott.com</a> and it will be
+          sorted out.
+        </p>
+      </div>
+    ) : (
+      <div class="success__state">
+        <p class="section-label">order confirmed</p>
+        <h1 class="success__heading">
+          {customerFirstName ? `Thanks, ${customerFirstName}.` : "Order confirmed."}
+        </h1>
+        <p class="success__body">
+          {customerEmail
+            ? `Your audit will be delivered within 48 hours to ${customerEmail}. A calendar invite will follow if anything is needed from you.`
+            : "Your audit will be delivered within 48 hours. A calendar invite will follow if anything is needed from you."}
+        </p>
+
+        <div class="notes">
+          <h2 class="notes__heading">Anything specific you want looked at?</h2>
+          <p class="notes__sub">Optional – the audit covers everything regardless, but feel free to flag something.</p>
+          <textarea
+            id="audit-notes"
+            class="notes__input"
+            rows={4}
+            placeholder='e.g. "We just updated our menu but Google still shows the old one"'
+          ></textarea>
+          <button class="notes__btn" id="notes-submit-btn">send note <span aria-hidden="true">→</span></button>
+          <p class="notes__confirm" id="notes-confirm" aria-live="polite"></p>
+        </div>
+      </div>
+    )}
+  </section>
+</Base>
+
+<script define:vars={{ sessionId }}>
+  const btn = document.getElementById("notes-submit-btn");
+  const textarea = document.getElementById("audit-notes");
+  const confirm = document.getElementById("notes-confirm");
+
+  if (btn && textarea && confirm) {
+    btn.addEventListener("click", async () => {
+      const notes = textarea.value.trim();
+      if (!notes) {
+        confirm.textContent = "Add a note first.";
+        return;
+      }
+      btn.disabled = true;
+      try {
+        const res = await fetch("/api/audit-notes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ session_id: sessionId, notes }),
+        });
+        if (res.ok) {
+          confirm.textContent = "Noted – it will be covered in the audit.";
+          textarea.disabled = true;
+        } else {
+          confirm.textContent = "Couldn't save the note – email it instead.";
+          btn.disabled = false;
+        }
+      } catch {
+        confirm.textContent = "Couldn't save the note – email it instead.";
+        btn.disabled = false;
+      }
+    });
+  }
+</script>
+
+<style>
+  .success {
+    padding-block: clamp(6rem, 4rem + 8vw, 10rem);
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .success__state {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .success__heading {
+    font-size: var(--text-3xl);
+  }
+
+  .success__body {
+    color: var(--color-text-muted);
+    max-width: 56ch;
+  }
+
+  .notes {
+    display: grid;
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+    max-width: 40rem;
+  }
+
+  .notes__heading {
+    font-size: var(--text-xl);
+  }
+
+  .notes__sub {
+    font-size: var(--text-sm);
+    color: var(--color-text-dim);
+  }
+
+  .notes__input {
+    width: 100%;
+    background: var(--color-bg-raised);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    line-height: var(--leading-prose);
+    resize: vertical;
+  }
+
+  .notes__input:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  .notes__btn {
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    letter-spacing: var(--tracking-mono);
+    text-transform: lowercase;
+    color: var(--color-accent);
+    background: var(--color-accent-bg);
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-sm);
+    padding: 0.5em 0.9em;
+    cursor: pointer;
+    transition: background var(--duration-fast) var(--ease-out-expo);
+  }
+
+  .notes__btn:hover,
+  .notes__btn:focus-visible {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  .notes__btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .notes__confirm {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+</style>

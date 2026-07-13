@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.2",
+    "@astrojs/vercel": "8.2.11",
+    "@supabase/supabase-js": "2.105.4",
+    "stripe": "22.1.1",
     "@fontsource-variable/newsreader": "5.2.10",
     "@fontsource/geist-mono": "5.2.7",
     "@fontsource/inter": "5.2.8",
