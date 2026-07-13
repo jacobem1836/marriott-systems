@@ -1,57 +1,65 @@
 # Manual steps – Marriott Systems ecosystem
 
-Remaining actions Claude cannot perform locally. Tick them off in order.
+Updated 2026-07-13 after the apex consolidation. In order:
 
-## 1. Cloudflare DNS – console subdomain
+## 1. Cloudflare DNS – two CNAMEs (blocks three things)
 
-The Brain Console migration to `console.marriottsystems.net` needs a DNS record
-(marriottsystems.net DNS is managed in Cloudflare, not Vercel):
+Cloudflare → marriottsystems.net → DNS → add, both **DNS only** (grey cloud):
 
-- Cloudflare → marriottsystems.net → DNS → Add record:
-  - Type: `CNAME`
-  - Name: `console`
-  - Target: `cname.vercel-dns.com`
-  - Proxy status: **DNS only** (grey cloud – Vercel handles TLS)
-- The `console.marriottsystems.net` domain has been added to the `brain-console`
-  Vercel project already (verify in Vercel → brain-console → Settings → Domains;
-  add it there if missing).
-- Once it resolves, add redirects from the old domain: in the brain-console repo
-  `apps/website/next.config.*`, add a host-based permanent redirect from
-  `console.jacobmarriott.com` to `console.marriottsystems.net` (ask Claude – this
-  is queued as a follow-up once DNS is live). Do not remove the old domain from
-  the Vercel project; it must stay attached so the redirect can serve.
+| Type | Name | Target |
+|---|---|---|
+| CNAME | `console` | `cname.vercel-dns.com` |
+| CNAME | `demo` | `cname.vercel-dns.com` |
 
-## 2. Email forwarding (optional, recommended)
+Both domains are already attached to their Vercel projects (`brain-console`,
+`restaurant-demo`). When added, tell Claude **"DNS is live – do the link swap pass"**,
+which flips: hub + /consulting Brain Console links to console.marriottsystems.net,
+the /hospitality demo link to demo.marriottsystems.net, and activates the
+console.jacobmarriott.com → console.marriottsystems.net redirect
+(see `~/brain-console/docs/domain-consolidation-brief.md`, Phase 1).
 
-- Cloudflare → marriottsystems.net → Email Routing → enable, and forward
-  `hello@marriottsystems.net` → your real inbox.
-- Once live, ask Claude to swap the hub + hospitality-systems contact email from
-  `hello@jacobmarriott.com` to `hello@marriottsystems.net`.
+## 2. Stripe dashboard – webhook endpoint
 
-## 3. LinkedIn (separate task, out of scope for this build)
+The audit checkout now runs on marriottsystems.net, but webhook events still point at
+the old endpoint (kept alive on web.jacobmarriott.com so nothing is lost):
 
-- Headline: add "Founder, Marriott Systems" alongside the UQ framing.
-- About section: currently missing – write one; the founder bio on
-  jacobmarriott.com/#about is the source.
-- Banner: currently dAIly-branded; replace with a Marriott Systems or neutral
-  terminal-editorial banner.
-- Add Brain Console + Marriott Systems to Experience.
+1. Stripe dashboard → Developers → Webhooks → Add endpoint:
+   `https://marriottsystems.net/api/stripe-webhook`
+   with events `checkout.session.completed` and `payment_intent.payment_failed`.
+2. Copy the new signing secret → Vercel → `marriott-systems` project →
+   Settings → Environment Variables → add `STRIPE_WEBHOOK_SECRET` (sensitive,
+   production + preview). All other env vars are already set.
+3. Redeploy the hub (or tell Claude), test one $297 checkout end-to-end, then delete
+   the old endpoint and the `web-jacobmarriott` project's env vars.
 
-## 4. GitHub profile
+## 3. Email forwarding (optional, recommended)
 
-- github.com/jacobem1836 profile README + bio: add "Founder, Marriott Systems
-  (marriottsystems.net)" and pin brain-console, dAIly, and the hub repo.
+Cloudflare → Email Routing → forward `hello@marriottsystems.net` to your inbox, then
+tell Claude to swap the contact email across the hub (currently hello@jacobmarriott.com).
 
-## 5. Hub repo → GitHub (recommended)
+## 4. Hub repo → GitHub
 
-The hub currently deploys via `vercel deploy` from local. For CI parity with the
-other sites: create a GitHub repo `marriott-systems`, push, and connect it to the
-Vercel project (Vercel → marriott-systems → Settings → Git).
+The hub still deploys from local CLI. Create `jacobem1836/marriott-systems`, push, and
+connect it in Vercel → marriott-systems → Settings → Git.
 
-## 6. Trademark note (decision recorded)
+## 5. Claude Design
 
-Proceeding on marriottsystems.net was a conscious call: "Marriott Systems" in the
-hospitality vertical sits near Marriott International's trademark class; your
-surname provides a good-faith own-name defence and risk at current scale is low.
-Revisit if the company takes investment or expands into accommodation.
-Optional cheap defence: register marriottsystems.dev ($9.99/yr, available).
+`CLAUDE-DESIGN-PROMPT.md` in this repo is ready to paste (attach
+`design-system/tokens.css` with it). When you have the chosen direction's assets,
+Claude implements them faithfully across the hub and spoke pages.
+
+## 6. LinkedIn + GitHub profile (separate session)
+
+- LinkedIn: headline "Founder, Marriott Systems · Software Engineering @ UQ", write the
+  missing About section from jacobmarriott.com/#about, replace the dAIly banner, add
+  Marriott Systems + Brain Console to Experience.
+- GitHub profile: founder bio line + pin brain-console, dAIly, and the hub repo.
+
+## 7. Decision log
+
+- Umbrella proceeds on marriottsystems.net; Marriott International trademark adjacency
+  consciously accepted (own-name defence; revisit on investment or expansion).
+  Optional cheap defence: marriottsystems.dev ($9.99/yr).
+- Hospitality is ONE spoke (websites + operations) at /hospitality; the separate
+  restaurant-ops sub-brand idea is retired.
+- jacobmarriott.com is founder/internship-only; company content lives on the apex.
