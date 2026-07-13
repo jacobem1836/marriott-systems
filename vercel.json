@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/dashboard",
+      "destination": "https://chef-jon-pizzeria-dashboard.vercel.app/",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
