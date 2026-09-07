@@ -35,7 +35,7 @@ the old endpoint (kept alive on web.jacobmarriott.com so nothing is lost):
 ## 3. Email forwarding (optional, recommended)
 
 Cloudflare → Email Routing → forward `hello@marriottsystems.net` to your inbox, then
-tell Claude to swap the contact email across the hub (currently hello@jacobmarriott.com).
+tell Claude to swap the contact email across the hub (currently hello@marriottsystems.net).
 
 ## 4. Hub repo → GitHub
 

@@ -12,7 +12,17 @@
     },
     {
       "source": "/audit",
-      "destination": "/hospitality/audit",
+      "destination": "/web/audit",
+      "permanent": true
+    },
+    {
+      "source": "/hospitality/audit",
+      "destination": "/web/audit",
+      "permanent": true
+    },
+    {
+      "source": "/hospitality/audit/success",
+      "destination": "/web/audit/success",
       "permanent": true
     },
     {

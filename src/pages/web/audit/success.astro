@@ -33,7 +33,7 @@ if (sessionId && import.meta.env.STRIPE_SECRET_KEY) {
 >
   <section class="success container">
     {hasError ? (
-      <div class="success__state">
+      <div class="success__state" data-reveal>
         <p class="section-label">something went wrong</p>
         <h1 class="success__heading">Your order details couldn't be retrieved.</h1>
         <p class="success__body">
@@ -43,7 +43,7 @@ if (sessionId && import.meta.env.STRIPE_SECRET_KEY) {
         </p>
       </div>
     ) : (
-      <div class="success__state">
+      <div class="success__state" data-reveal>
         <p class="section-label">order confirmed</p>
         <h1 class="success__heading">
           {customerFirstName ? `Thanks, ${customerFirstName}.` : "Order confirmed."}
@@ -71,43 +71,11 @@ if (sessionId && import.meta.env.STRIPE_SECRET_KEY) {
   </section>
 </Base>
 
-<script define:vars={{ sessionId }}>
-  const btn = document.getElementById("notes-submit-btn");
-  const textarea = document.getElementById("audit-notes");
-  const confirm = document.getElementById("notes-confirm");
-
-  if (btn && textarea && confirm) {
-    btn.addEventListener("click", async () => {
-      const notes = textarea.value.trim();
-      if (!notes) {
-        confirm.textContent = "Add a note first.";
-        return;
-      }
-      btn.disabled = true;
-      try {
-        const res = await fetch("/api/audit-notes", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ session_id: sessionId, notes }),
-        });
-        if (res.ok) {
-          confirm.textContent = "Noted – it will be covered in the audit.";
-          textarea.disabled = true;
-        } else {
-          confirm.textContent = "Couldn't save the note – email it instead.";
-          btn.disabled = false;
-        }
-      } catch {
-        confirm.textContent = "Couldn't save the note – email it instead.";
-        btn.disabled = false;
-      }
-    });
-  }
-</script>
+<script is:inline src="/audit-success.js"></script>
 
 <style>
   .success {
-    padding-block: clamp(6rem, 4rem + 8vw, 10rem);
+    padding-block: clamp(3rem, 2.4rem + 3vw, 5rem);
     display: grid;
     gap: var(--space-8);
   }
@@ -118,11 +86,11 @@ if (sessionId && import.meta.env.STRIPE_SECRET_KEY) {
   }
 
   .success__heading {
-    font-size: var(--text-3xl);
+    font-size: var(--text-2xl);
   }
 
   .success__body {
-    color: var(--color-text-muted);
+    color: var(--muted);
     max-width: 56ch;
   }
 
@@ -139,15 +107,15 @@ if (sessionId && import.meta.env.STRIPE_SECRET_KEY) {
 
   .notes__sub {
     font-size: var(--text-sm);
-    color: var(--color-text-dim);
+    color: var(--muted);
   }
 
   .notes__input {
     width: 100%;
-    background: var(--color-bg-raised);
-    color: var(--color-text);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card-md);
     padding: var(--space-4);
     font-family: var(--font-sans);
     font-size: var(--text-sm);
@@ -156,7 +124,7 @@ if (sessionId && import.meta.env.STRIPE_SECRET_KEY) {
   }
 
   .notes__input:focus-visible {
-    outline: 2px solid var(--color-focus);
+    outline: 2px solid var(--focus);
     outline-offset: 2px;
   }
 
@@ -169,9 +137,9 @@ if (sessionId && import.meta.env.STRIPE_SECRET_KEY) {
     font-size: var(--text-sm);
     letter-spacing: var(--tracking-mono);
     text-transform: lowercase;
-    color: var(--color-accent);
-    background: var(--color-accent-bg);
-    border: 1px solid var(--color-accent);
+    color: var(--accent);
+    background: var(--accent-bg);
+    border: 1px solid var(--accent);
     border-radius: var(--radius-sm);
     padding: 0.5em 0.9em;
     cursor: pointer;
@@ -180,8 +148,8 @@ if (sessionId && import.meta.env.STRIPE_SECRET_KEY) {
 
   .notes__btn:hover,
   .notes__btn:focus-visible {
-    background: var(--color-accent);
-    color: var(--color-bg);
+    background: var(--accent);
+    color: var(--accent-ink);
   }
 
   .notes__btn:disabled {
@@ -191,6 +159,6 @@ if (sessionId && import.meta.env.STRIPE_SECRET_KEY) {
 
   .notes__confirm {
     font-size: var(--text-sm);
-    color: var(--color-text-muted);
+    color: var(--muted);
   }
 </style>

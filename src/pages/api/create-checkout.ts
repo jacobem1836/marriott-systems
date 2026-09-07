@@ -49,8 +49,8 @@ export const POST: APIRoute = async ({ request }) => {
   const sessionParams: Stripe.Checkout.SessionCreateParams = {
     mode: 'payment',
     line_items: lineItems,
-    success_url: `${SITE_URL}/hospitality/audit/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${SITE_URL}/hospitality/audit`,
+    success_url: `${SITE_URL}/web/audit/success?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${SITE_URL}/web/audit`,
     submit_type: 'pay',
     metadata: {
       source: 'marriottsystems.net',

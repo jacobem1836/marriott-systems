@@ -6,15 +6,15 @@ import Base from "../layouts/Base.astro";
   title="AI Systems Consulting – Marriott Systems"
   description="Personalised AI systems for professionals and businesses across Australia and New Zealand – Claude Code environments, custom skills, knowledge graphs, and automation workflows."
 >
-  <section class="consult-section container">
-    <p class="section-label"><span aria-hidden="true">01 / </span>what we build</p>
-    <div class="consult-body">
-      <p>
+  <section class="consult-hero container">
+    <p class="section-label" data-reveal><span aria-hidden="true">01 / </span>what we build</p>
+    <div class="consult-lead-group">
+      <p class="consult-lead" data-reveal>
         Marriott Systems builds personalised AI systems for professionals and business owners –
         structured setups that know your work, your clients, and how you operate. Not a chat
         window: a working layer on top of your day.
       </p>
-      <p>
+      <p class="consult-support" data-reveal>
         In practice, that means a Claude Code environment built around you – a profile that
         persists across every session, custom shortcuts for the tasks you repeat, a knowledge
         graph that maps your documents and finds connections, and an automation roadmap for
@@ -24,8 +24,8 @@ import Base from "../layouts/Base.astro";
   </section>
 
   <section class="consult-section container">
-    <p class="section-label"><span aria-hidden="true">02 / </span>who it's for</p>
-    <div class="consult-body">
+    <p class="section-label" data-reveal><span aria-hidden="true">02 / </span>who it's for</p>
+    <div class="consult-prose" data-reveal>
       <p>
         Professionals who spend too much time on work that should be faster – drafting,
         summarising, researching, preparing. Solo operators and small teams. People who have
@@ -39,45 +39,45 @@ import Base from "../layouts/Base.astro";
   </section>
 
   <section class="consult-section container">
-    <p class="section-label"><span aria-hidden="true">03 / </span>how it works</p>
-    <div class="consult-body">
-      <ol class="consult-steps">
-        <li class="consult-step">
-          <span class="consult-step__num mono">01</span>
-          <div>
-            <strong>Context</strong> – before anything is built, the engagement starts with how
-            you actually work: your tools, your clients, your recurring tasks, and the documents
-            you keep returning to. A personalised system is only as good as what it knows.
-          </div>
-        </li>
-        <li class="consult-step">
-          <span class="consult-step__num mono">02</span>
-          <div>
-            <strong>Build</strong> – one focused session that sets up the full environment:
-            profile, rules, skills, and knowledge graph. You leave with a working system.
-          </div>
-        </li>
-        <li class="consult-step">
-          <span class="consult-step__num mono">03</span>
-          <div>
-            <strong>Check-in</strong> – one week later, a review of what you have actually used,
-            tuning what isn't working, and adding what has emerged.
-          </div>
-        </li>
-        <li class="consult-step">
-          <span class="consult-step__num mono">04</span>
-          <div>
-            <strong>Ongoing</strong> – monthly support, new skills as your work evolves, graph
-            updates, and advanced automations.
-          </div>
-        </li>
-      </ol>
-    </div>
+    <p class="section-label" data-reveal><span aria-hidden="true">03 / </span>how it works</p>
+    <ol class="consult-steps" data-reveal>
+      <li class="consult-step">
+        <span class="consult-step__num mono" aria-hidden="true">01</span>
+        <p class="consult-step__text">
+          <strong class="consult-step__label">Context</strong> – before anything is built, the
+          engagement starts with how you actually work: your tools, your clients, your recurring
+          tasks, and the documents you keep returning to. A personalised system is only as good
+          as what it knows.
+        </p>
+      </li>
+      <li class="consult-step">
+        <span class="consult-step__num mono" aria-hidden="true">02</span>
+        <p class="consult-step__text">
+          <strong class="consult-step__label">Build</strong> – one focused session that sets up
+          the full environment: profile, rules, skills, and knowledge graph. You leave with a
+          working system.
+        </p>
+      </li>
+      <li class="consult-step">
+        <span class="consult-step__num mono" aria-hidden="true">03</span>
+        <p class="consult-step__text">
+          <strong class="consult-step__label">Check-in</strong> – one week later, a review of
+          what you have actually used, tuning what isn't working, and adding what has emerged.
+        </p>
+      </li>
+      <li class="consult-step">
+        <span class="consult-step__num mono" aria-hidden="true">04</span>
+        <p class="consult-step__text">
+          <strong class="consult-step__label">Ongoing</strong> – monthly support, new skills as
+          your work evolves, graph updates, and advanced automations.
+        </p>
+      </li>
+    </ol>
   </section>
 
   <section class="consult-section container">
-    <p class="section-label"><span aria-hidden="true">04 / </span>flagship build</p>
-    <div class="consult-body">
+    <p class="section-label" data-reveal><span aria-hidden="true">04 / </span>flagship build</p>
+    <div class="card card--lg consult-prose consult-flagship" data-reveal>
       <p>
         The fullest version of this is
         <a href="https://console.marriottsystems.net" target="_blank" rel="noopener noreferrer">Brain Console</a>
@@ -92,11 +92,11 @@ import Base from "../layouts/Base.astro";
   </section>
 
   <section class="consult-section container">
-    <p class="section-label"><span aria-hidden="true">05 / </span>get in touch</p>
-    <div class="consult-body">
+    <p class="section-label" data-reveal><span aria-hidden="true">05 / </span>get in touch</p>
+    <div class="card consult-prose consult-contact" data-reveal>
       <p>
         If this sounds relevant, email
-        <a href="mailto:hello@jacobmarriott.com">hello@jacobmarriott.com</a> – a short call
+        <a href="mailto:hello@marriottsystems.net">hello@marriottsystems.net</a> – a short call
         first is always fine.
       </p>
       <p>
@@ -109,66 +109,116 @@ import Base from "../layouts/Base.astro";
 </Base>
 
 <style>
-  .consult-section {
-    padding-block: var(--space-section);
-    border-top: 1px solid var(--color-border);
+  /* ---------- Hero (section 01) ---------- */
+
+  .consult-hero {
     display: grid;
     gap: var(--space-8);
   }
 
-  .consult-section:first-of-type {
-    border-top: 0;
-    padding-top: clamp(5rem, 3rem + 8vw, 9rem);
+  /* Sticky header no longer needs the old absolute-header clearance padding –
+     override the global `main > section:first-child` reset with a lighter,
+     hero-appropriate top pad. Two classes needed to out-specificity that rule. */
+  .consult-hero.container {
+    padding-top: clamp(3rem, 2rem + 4vw, 6rem);
   }
 
-  .consult-body {
+  .consult-lead-group {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .consult-lead {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: var(--text-xl);
+    line-height: var(--leading-prose);
+    letter-spacing: var(--tracking-tight);
+    color: var(--text);
+    max-width: 60ch;
+  }
+
+  .consult-support {
+    font-size: var(--text-lg);
+    line-height: var(--leading-prose);
+    color: var(--muted);
+    max-width: 58ch;
+  }
+
+  /* ---------- Standard sections (label + body grid gap; padding/border
+     already come from the global `main > section` rule) ---------- */
+
+  .consult-section {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .consult-prose {
     display: grid;
     gap: var(--space-6);
     max-width: 58ch;
     font-size: var(--text-lg);
     line-height: var(--leading-prose);
-    color: var(--color-text);
   }
 
-  .consult-body p {
-    max-width: none;
-    color: var(--color-text-muted);
+  .consult-prose p {
+    color: var(--muted);
   }
+
+  /* ---------- Numbered process grid (section 03) ---------- */
 
   .consult-steps {
     list-style: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
     display: grid;
-    gap: var(--space-6);
+    gap: clamp(1.375rem, 1.1rem + 1.3vw, 2.125rem);
   }
 
   .consult-step {
-    display: flex;
-    gap: var(--space-6);
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: clamp(1rem, 0.8rem + 1vw, 1.75rem);
+    align-items: baseline;
   }
 
   .consult-step__num {
     font-size: var(--text-xs);
-    color: var(--color-accent);
-    flex-shrink: 0;
-    padding-top: 0.4em;
+    color: var(--accent);
+    padding-top: 0.3em;
   }
 
-  .consult-step div {
-    color: var(--color-text-muted);
+  .consult-step__text {
+    max-width: 58ch;
     font-size: var(--text-base);
     line-height: var(--leading-prose);
+    color: var(--muted);
   }
 
-  .consult-step strong {
-    color: var(--color-text);
-    font-weight: 500;
+  .consult-step__label {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: var(--text-xl);
+    color: var(--text);
+    margin-bottom: var(--space-2);
+  }
+
+  /* ---------- Flagship / contact cards (sections 04–05) ---------- */
+
+  .consult-flagship {
+    max-width: none;
+  }
+
+  .consult-contact {
+    max-width: none;
+    border-radius: 18px;
   }
 
   @media (min-width: 48rem) {
-    .consult-body {
+    .consult-lead-group,
+    .consult-prose,
+    .consult-steps {
       padding-left: clamp(0rem, -2rem + 10vw, 8rem);
     }
   }
