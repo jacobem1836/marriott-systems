@@ -13,7 +13,7 @@ Cloudflare → marriottsystems.net → DNS → add, both **DNS only** (grey clou
 
 Both domains are already attached to their Vercel projects (`brain-console`,
 `restaurant-demo`). When added, tell Claude **"DNS is live – do the link swap pass"**,
-which flips: hub + /consulting Brain Console links to console.marriottsystems.net,
+which flips: hub + /consulting Brain Console links to brainconsole.com.au (done 2026-09-08, unpushed until DNS is live),
 the /hospitality demo link to demo.marriottsystems.net, and activates the
 console.jacobmarriott.com → console.marriottsystems.net redirect
 (see `~/brain-console/docs/domain-consolidation-brief.md`, Phase 1).
