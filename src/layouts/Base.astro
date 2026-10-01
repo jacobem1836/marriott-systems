@@ -18,8 +18,8 @@ interface Props {
 }
 
 const {
-  title = "Marriott Systems – AI products and operational systems",
-  description = "Marriott Systems is a Brisbane software company building AI products and operational systems for real businesses – Brain Console, dAIly, AI consulting, and hospitality systems. Founded by Jacob Marriott.",
+  title = "Marriott Systems – software products, built in Brisbane",
+  description = "Marriott Systems makes software products: Brain Console, dAIly and CRATE. Built in Brisbane by Jacob Marriott.",
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).href;
@@ -30,7 +30,7 @@ const organizationSchema = {
   "@id": "https://marriottsystems.net/#organization",
   "name": "Marriott Systems",
   "url": "https://marriottsystems.net",
-  "description": "Brisbane software company building AI products and operational systems for real businesses.",
+  "description": "Brisbane company making software products: Brain Console, dAIly and CRATE.",
   "founder": {
     "@type": "Person",
     "name": "Jacob Marriott",
@@ -40,6 +40,7 @@ const organizationSchema = {
   "brand": [
     { "@type": "Brand", "name": "Brain Console", "url": "https://brainconsole.com.au" },
     { "@type": "Brand", "name": "dAIly", "url": "https://getdaily.dev" },
+    { "@type": "Brand", "name": "CRATE", "url": "https://github.com/jacobem1836/Vinyl-Scraper" },
   ],
   "sameAs": [
     "https://github.com/jacobem1836",
@@ -93,9 +94,8 @@ const websiteSchema = {
         <a class="site-header__wordmark" href="/">marriott systems</a>
         <div class="site-header__cluster">
           <nav class="site-header__nav mono" aria-label="Sections">
-            <a href="/consulting">consulting</a>
-            <a href="/hospitality">hospitality</a>
-            <a href="/web">web</a>
+            <a href="/#ventures-heading">products</a>
+            <a href="https://jacobmarriott.com">consulting ↗</a>
           </nav>
         </div>
       </div>

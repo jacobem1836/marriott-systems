@@ -10,7 +10,6 @@ interface Venture {
   cta: string;
   external: boolean;
   flagship?: boolean;
-  ctas?: { label: string; href: string }[];
 }
 
 const ventures: Venture[] = [
@@ -18,50 +17,37 @@ const ventures: Venture[] = [
     index: "01",
     kind: "product – flagship",
     title: "Brain Console",
-    body: "A business-wide AI brain – persistent memory, tool execution, and one place that actually knows your company. Every employee gets an AI that answers in your voice, from your knowledge, with the sources attached.",
+    body: "An AI assistant for your whole team that already knows how your firm works: its processes, its clients and how you like things done. Built for small firms.",
     href: "https://brainconsole.com.au",
     cta: "see brain console",
     external: true,
     flagship: true,
   },
   {
-    index: "04",
+    index: "02",
     kind: "product – early access",
     title: "dAIly",
-    body: "A voice-first morning brief – your email, calendar, Slack, and messages, synthesised, prioritised, and spoken to you before you open a single app.",
+    body: "A spoken morning brief. It reads your email, calendar and messages and tells you what needs your attention before you open an app.",
     href: "https://getdaily.dev",
     cta: "get early access",
     external: true,
   },
   {
-    index: "02",
-    kind: "service",
-    title: "AI systems consulting",
-    body: "Personalised AI systems for professionals and business owners – structured Claude Code environments, custom skills, knowledge graphs, and automation, built around how each client actually works.",
-    href: "/consulting",
-    cta: "see consulting",
-    external: false,
-  },
-  {
     index: "03",
-    kind: "service",
-    title: "Hospitality",
-    body: "Websites and operational systems for independent venues – visibility audits, custom rebuilds, and dashboards that pull POS, bookings, and accounting into one place.",
-    href: "/hospitality",
-    cta: "see the offer",
-    external: false,
-    ctas: [
-      { label: "see websites", href: "/web" },
-      { label: "see operations", href: "/hospitality" },
-    ],
+    kind: "product – in progress",
+    title: "CRATE",
+    body: "A vinyl wishlist. It watches Australian record stores and Discogs, and emails you when a record you want drops under your price.",
+    href: "https://github.com/jacobem1836/Vinyl-Scraper",
+    cta: "see on github",
+    external: true,
   },
   {
-    index: "05",
+    index: "04",
     kind: "founder",
     title: "Jacob Marriott",
-    body: "Software engineer and founder – agentic AI, full-stack systems, and a portfolio of shipped work. Studying software engineering at UQ.",
+    body: "Marriott Systems is run by Jacob Marriott. For consulting and custom builds, go to his site.",
     href: "https://jacobmarriott.com",
-    cta: "about the founder",
+    cta: "work with jacob",
     external: true,
   },
 ];
@@ -69,8 +55,8 @@ const ventures: Venture[] = [
 // Grouped for the flagship / service-pair / lab+founder layout — derived
 // entirely from the existing `kind` field, no reordering of the source data.
 const flagship = ventures.find((v) => v.flagship) as Venture;
-const serviceVentures = ventures.filter((v) => v.kind === "service");
-const miniVentures = ventures.filter((v) => !v.flagship && v.kind !== "service");
+const productVentures = ventures.filter((v) => !v.flagship && v.kind.startsWith("product"));
+const miniVentures = ventures.filter((v) => v.kind === "founder");
 
 // Hero terminal cycles through the page's own CTA copy — no invented lines.
 const terminalLines = ventures.map((v) => v.cta);
@@ -84,13 +70,13 @@ const flagshipDomain = flagship.href.replace(/^https?:\/\//, "");
     </p>
     <h1 id="hero-heading" class="hero__headline" data-reveal>
       Marriott Systems
-      <span class="hero__headline-soft">AI products and operational systems, built in Brisbane.</span>
+      <span class="hero__headline-soft">Software products, built in Brisbane.</span>
     </h1>
     <p class="hero__lede" data-reveal>
-      Marriott Systems is the company behind <a href="https://brainconsole.com.au">Brain Console</a>
-      and <a href="https://getdaily.dev">dAIly</a>, alongside a consulting practice building AI systems, websites, and
-      operational systems for businesses across Australia and New Zealand. Founded and run by
-      <a href="https://jacobmarriott.com">Jacob Marriott</a>.
+      We make <a href="https://brainconsole.com.au">Brain Console</a>,
+      <a href="https://getdaily.dev">dAIly</a> and
+      <a href="https://github.com/jacobem1836/Vinyl-Scraper">CRATE</a>.
+      Founded and run by <a href="https://jacobmarriott.com">Jacob Marriott</a>.
     </p>
     <p class="hero__meta mono" data-reveal>
       <span>brisbane, au</span>
@@ -114,9 +100,9 @@ const flagshipDomain = flagship.href.replace(/^https?:\/\//, "");
 
   <section class="ventures container" aria-labelledby="ventures-heading">
     <p class="section-label" data-reveal>
-      <span aria-hidden="true">02 / </span>ventures
+      <span aria-hidden="true">02 / </span>products
     </p>
-    <h2 id="ventures-heading" class="visually-hidden">Ventures and services</h2>
+    <h2 id="ventures-heading" class="visually-hidden">Products</h2>
 
     <article class="venture-flagship card card--lg" data-reveal>
       <div class="venture-flagship__copy">
@@ -169,29 +155,22 @@ const flagshipDomain = flagship.href.replace(/^https?:\/\//, "");
     </article>
 
     <div class="grid-cards">
-      {serviceVentures.map((v) => (
+      {productVentures.map((v) => (
         <article class="card venture-card" data-reveal>
           <p class="venture-card__meta mono">
             <span aria-hidden="true">{v.index} / </span>{v.kind}
           </p>
           <h3 class="venture-card__title">
-            <a class="venture-card__link" href={v.href}>
+            <a class="venture-card__link" href={v.href} target="_blank" rel="noopener noreferrer">
               {v.title}
-              <span class="venture-card__arrow" aria-hidden="true">→</span>
+              <span class="venture-card__arrow" aria-hidden="true">↗</span>
+              <span class="visually-hidden">(opens in a new tab)</span>
             </a>
           </h3>
           <p class="venture-card__body">{v.body}</p>
-          {v.ctas ? (
-            v.ctas.map((c) => (
-              <a class="link-cta venture-card__cta" href={c.href}>
-                {c.label} <span class="link-cta__arrow" aria-hidden="true">→</span>
-              </a>
-            ))
-          ) : (
-            <a class="link-cta venture-card__cta" href={v.href}>
-              {v.cta} <span class="link-cta__arrow" aria-hidden="true">→</span>
-            </a>
-          )}
+          <a class="link-cta venture-card__cta" href={v.href} target="_blank" rel="noopener noreferrer">
+            {v.cta} <span class="link-cta__arrow" aria-hidden="true">→</span>
+          </a>
         </article>
       ))}
     </div>
