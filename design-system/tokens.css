@@ -18,11 +18,11 @@
   --line:        oklch(0.33 0.012 255);
   --text:        oklch(0.94 0.006 255);
   --muted:       oklch(0.7 0.01 255);
-  --accent:      oklch(0.82 0.16 150);
+  --accent:      oklch(0.82 0.14 150);
   --accent-ink:  oklch(0.2 0.04 150);
-  --accent-bg:   oklch(0.82 0.16 150 / 0.12);
+  --accent-bg:   oklch(0.82 0.14 150 / 0.12);
   --focus:       var(--accent);
-  --selection-bg: oklch(0.82 0.16 150 / 0.25);
+  --selection-bg: oklch(0.82 0.14 150 / 0.25);
 
   /* ---------- Typography ---------- */
   --font-sans:    "Inter", ui-sans-serif, system-ui, sans-serif;
